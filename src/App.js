@@ -56,7 +56,7 @@ export default function App() {
       item.id === id ? { ...item, isCompleted } : item
     );
     setData(newData);
-  }
+  };
 
   return (
     <div
@@ -67,52 +67,55 @@ export default function App() {
         className="d-flex justify-content-center p-5"
         style={{ height: "100vh" }}
       >
-        <div className="" style={{ width: "700px" }}>
-          <div className="card-body">
-            <h3 className="card-title">TODO List App</h3>
-            <h6 className="card-subtitle mb-5 text-muted">
-              Team 5 - Web Application
-            </h6>
+        <div style={{ width: "700px" }}>
+          <div>
+            <h3>TODO List App</h3>
+            <h6 className="mb-5 text-muted">Team 5 - Web Application</h6>
             <div className="vstack gap-3">
               <div className="vstack gap-2">
                 {data.map((item, i) => (
                   <div
                     key={i}
-                    className={`shadow-sm p-3 rounded d-flex justify-content-between ${item.isCompleted ? 'bg-info' : 'bg-body'}`}
-                    style={{ cursor: "pointer", "--bs-bg-opacity": item.isCompleted ? 0.2 : 1 }}
+                    className={`card border-0 shadow-sm rounded ${
+                      item.isCompleted ? "bg-info" : "bg-body"
+                    }`}
+                    style={{ "--bs-bg-opacity": item.isCompleted ? 0.2 : 1 }}
                   >
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      id="flexCheckDefault"
-                      checked={item.isCompleted}
-                      onChange={({ target }) => {
-                        updateTaskStatus(item.id, target.checked);
-                      }}
-                    />
-                    <div className="ms-3 me-auto">
-                      <div className="fw-bold fs-5">{item.title}</div>
-                      <div
-                        className="text-truncate"
-                        style={{ maxWidth: "600px" }}
-                      >
-                        {item.description}
+                    <div className="card-body p-3 d-flex justify-content-between">
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        id="flexCheckDefault"
+                        checked={item.isCompleted}
+                        onChange={({ target }) => {
+                          updateTaskStatus(item.id, target.checked);
+                        }}
+                      />
+                      <div className="ms-3 me-auto">
+                        <div className="fw-bold fs-5">{item.title}</div>
+                        <div
+                          className="text-truncate"
+                          style={{ maxWidth: "600px" }}
+                        >
+                          {item.description}
+                        </div>
+                        <div className="hstack gap-2">
+                          <span className="text-primary">
+                            <i className="fa-solid fa-calendar-days fa-xs"></i>
+                          </span>
+                          <span className="text-primary fs-6">
+                            {formatDate(item.date)}
+                          </span>
+                        </div>
                       </div>
-                      <div className="hstack gap-2">
-                        <span className="text-primary">
-                          <i className="fa-solid fa-calendar-days fa-xs"></i>
-                        </span>
-                        <span className="text-primary fs-6">
-                          {formatDate(item.date)}
-                        </span>
-                      </div>
+                      <i
+                        className="fa-solid fa-up-right-from-square"
+                        style={{ cursor: "pointer" }}
+                        onClick={() => setSelectedItem(item)}
+                        data-bs-toggle="modal"
+                        data-bs-target="#detailTaskModal"
+                      ></i>
                     </div>
-                    <i
-                      className="fa-solid fa-up-right-from-square"
-                      onClick={() => setSelectedItem(item)}
-                      data-bs-toggle="modal"
-                      data-bs-target="#detailTaskModal"
-                    ></i>
                   </div>
                 ))}
               </div>
@@ -136,52 +139,51 @@ export default function App() {
                 </a>
               </div>
               <div className="collapse" id="addNewCollapse">
-                <div
-                  className="shadow-sm p-3 bg-body rounded"
-                  style={{ cursor: "pointer" }}
-                >
-                  <form
-                    className="needs-validation"
-                    novalidate
-                    onSubmit={handleSubmit}
-                  >
-                    <div className="mb-1">
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="title"
-                        aria-describedby="title"
-                        placeholder="Judul"
-                        required
-                      />
-                    </div>
-                    <div className="mb-1">
-                      <textarea
-                        className="form-control"
-                        id="description"
-                        aria-describedby="description"
-                        placeholder="Deskripsi"
-                        required
-                      />
-                    </div>
-                    <div className="mb-3">
-                      <input
-                        type="date"
-                        className="form-control"
-                        id="date"
-                        aria-describedby="date"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <button type="reset" className="btn btn-light">
-                        Reset
-                      </button>
-                      <button type="submit" className="btn btn-primary ms-1">
-                        Simpan
-                      </button>
-                    </div>
-                  </form>
+                <div className="card border-0 shadow-sm bg-body rounded">
+                  <div className="card-body p-3">
+                    <form
+                      className="needs-validation"
+                      novalidate
+                      onSubmit={handleSubmit}
+                    >
+                      <div className="mb-1">
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="title"
+                          aria-describedby="title"
+                          placeholder="Judul"
+                          required
+                        />
+                      </div>
+                      <div className="mb-1">
+                        <textarea
+                          className="form-control"
+                          id="description"
+                          aria-describedby="description"
+                          placeholder="Deskripsi"
+                          required
+                        />
+                      </div>
+                      <div className="mb-3">
+                        <input
+                          type="date"
+                          className="form-control"
+                          id="date"
+                          aria-describedby="date"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <button type="reset" className="btn btn-light">
+                          Reset
+                        </button>
+                        <button type="submit" className="btn btn-primary ms-1">
+                          Simpan
+                        </button>
+                      </div>
+                    </form>
+                  </div>
                 </div>
               </div>
             </div>
